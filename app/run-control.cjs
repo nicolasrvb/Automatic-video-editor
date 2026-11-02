@@ -1,7 +1,7 @@
 const S=require('./studio.cjs'),E=require('./editing.cjs'),M=require('./models.cjs');const {fs,path,ROOT,DATA,ff,probe,read,save}=S;const job=read(S.runPath(process.argv[2]));if(!job)process.exit(2);const c=job.config;const originalHash=S.hash;S.hash=x=>originalHash(job.id+'-control-'+x);const folder=path.join(ROOT,'exports',job.id);fs.mkdirSync(folder,{recursive:true});const started=Date.now();let child;
 let reviewed=0,reviewTimes=[],renderTimes=[],rendered=0;
 function progress(percent,detail,etaSeconds=null){job.progress={percent:Math.min(99,Math.max(job.progress?.percent||0,percent)),detail,etaSeconds,estimated:etaSeconds!==null,updatedAt:new Date().toISOString()};update();}
-const check=()=>{if(fs.existsSync(S.runPath(job.id)+'.cancel'))throw Error('Cancelled');};
+const check=()=>require('./job-control.cjs')(job.id);
 const update=()=>{job.elapsedSeconds=(Date.now()-started)/1000;save(S.runPath(job.id),job);};
 async function run(args){check();const r=await ff(args,{onChild:p=>child=p});child=null;check();return r;}
 const timer=setInterval(()=>{if(fs.existsSync(S.runPath(job.id)+'.cancel'))child?.kill();},500);

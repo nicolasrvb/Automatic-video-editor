@@ -19,3 +19,12 @@ No schema migration. Never commit user media, runtime models, settings, authenti
 ## Roadmap — outside this pass
 
 Protected phone monitoring; still-photo/parallax editing; advanced DJ/sound design; YouTube upload (future defaults: Unlisted, Family Videos). No placeholder upload or remote-access controls.
+
+## 2 — Folder selector and persistent progress
+
+- Added lazy folder expansion, compact real file counts/sizes and edit-status badges, plus one source-video player and generated representative frame.
+- Footer now shows recorded progress, queue, current operation and only recent stage estimates. Pauses take effect at safe model/render checkpoints; waiting for the current step is explicit. Cancellation remains available.
+- Existing A/B submission is preserved and remains accessible under Advanced.
+- Checks: representative preview returned JPEG (26 KB), pause/resume/cancel integration passed, and cross-site API protections plus Sites-button navigation passed.
+- Regressions found and fixed: bundled FFmpeg rejected shorthand 0.2 seek formatting; navigation test now uses HTTP headers faithfully rather than Fetch overriding its mode.
+
