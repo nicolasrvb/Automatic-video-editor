@@ -1,0 +1,2 @@
+// Concept B interactions are layered onto the existing editing workflow.
+(()=>{const refreshBase=refresh;refresh=async function(){await refreshBase();const title=form.elements.name.value.trim()||form.elements.source.value.split(/[\\/]/).filter(Boolean).at(-1)||'Create your next edit';$('#ux-project-title').textContent=location.hash==='#history'?'Your edits':title;$('#ux-project-path').textContent=location.hash==='#history'?'Finished videos, ready to enjoy':form.elements.source.value||'Choose footage to begin';};refresh().catch(e=>note(e.message,true));})();
