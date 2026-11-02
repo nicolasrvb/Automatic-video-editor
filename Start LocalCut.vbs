@@ -1,2 +1,7 @@
+Set fs = CreateObject("Scripting.FileSystemObject")
 Set shell = CreateObject("WScript.Shell")
-shell.Run """D:\LocalCut Studio\Start LocalCut.cmd""", 0, False
+folder = fs.GetParentFolderName(WScript.ScriptFullName)
+shell.CurrentDirectory = folder
+command = Chr(34) & fs.BuildPath(folder, "Start LocalCut.cmd") & Chr(34)
+code = shell.Run(command, 0, True)
+If code <> 0 Then MsgBox "LocalCut could not start. Check that the bundled runtime is installed and review data\logs\launcher.log.", 48, "LocalCut startup"

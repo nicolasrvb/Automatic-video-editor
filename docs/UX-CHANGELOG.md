@@ -40,3 +40,11 @@ Protected phone monitoring; still-photo/parallax editing; advanced DJ/sound desi
 - Test target was 4 seconds; Qwen approved 2.375 seconds and reported the source limitation. No artificial padding/repeated footage was introduced.
 - Prefix/month rollover/metadata tests pass. No user data schema migration.
 
+
+## 4 — Desktop launcher repair
+
+- Desktop shortcut bypassed the supplied startup script and had no valid icon path. New scripts use their installation directory, configure existing caches, validate the bundled runtime and log failures.
+- Launcher reuses a healthy server, coordinates simultaneous starts and surfaces unresponsive/stale startup state. Browser launch no longer depends on a PowerShell command.
+- Backed up and installed only the launcher scripts and repaired shortcut; stable editing UI and user data remain in place. Desktop shortcut was launched and stable server reuse verified on port 8787. Preview cold-start and repeated-launch checks passed on port 8788.
+- Tag publication was attempted without interactive sign-in and failed because Git has no credentials. The exact stable commit remains backed up on main and the remote recovery branch; the local tag exists.
+
