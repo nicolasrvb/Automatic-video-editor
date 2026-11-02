@@ -15,13 +15,16 @@
  const preview=document.createElement('article');preview.className='ux-preview';preview.innerHTML='<div class="card-heading"><h2>Selected footage</h2><span id="ux-source-count" class="badge">Choose a folder</span></div><div id="ux-preview-empty" class="preview-empty"><span aria-hidden="true">▻</span><strong>A story starts with a folder</strong><p>Select your footage on the left to see one representative preview.</p></div><video id="ux-source-player" controls preload="metadata" hidden></video><div id="ux-preview-caption"></div>';
  const settings=document.createElement('article');settings.className='ux-settings';settings.innerHTML='<h2> Edit settings</h2><div class="edit-mode" role="group" aria-label="Settings view"><button type="button" id="ux-auto" aria-pressed="true"><b>✦</b>Auto edit<small>Recommended</small></button><button type="button" id="ux-custom" aria-pressed="false"><b>⚙</b>Customize<small>More control</small></button></div><div id="ux-primary"></div><details id="ux-secondary"><summary>More edit options</summary><div class="detail-body"></div></details><details id="ux-advanced"><summary>Advanced settings</summary><div class="detail-body"></div></details>';
  columns.append(source,preview,settings);
+ preview.querySelector('video').insertAdjacentHTML('afterend','<img id="ux-source-still" class="source-still" alt="Representative frame from selected footage" hidden>');
  const label=name=>form.querySelector('[name="'+name+'"]').closest('label');
  const primary=settings.querySelector('#ux-primary');
  for(const name of ['name','preset','duration','orientation'])primary.append(label(name));
  label('name').childNodes[0].textContent='Project name';form.elements.name.placeholder='Name your edit (optional)';
+ const rename=document.createElement('dialog');rename.id='ux-rename-dialog';rename.innerHTML='<h2>Name your project</h2>';const nameLabel=label('name');nameLabel.querySelector('input').setAttribute('form','edit-form');rename.append(nameLabel);rename.insertAdjacentHTML('beforeend','<button type="button" class="primary" id="ux-rename-done">Done</button>');document.body.append(rename);q('header>div').insertAdjacentHTML('beforeend','<button type="button" id="ux-rename" aria-label="Rename project">✎</button>');q('#ux-rename').onclick=()=>rename.showModal();q('#ux-rename-done').onclick=()=>{rename.close();form.elements.name.dispatchEvent(new Event('change',{bubbles:true}));};
  label('duration').childNodes[0].textContent='Length · seconds';
  primary.append(label('provider'));label('provider').childNodes[0].textContent='Analysis';
- const friendly={qwen3vl:'Standard · recommended',qwen:'Compatibility',qwen3:'Two-model analysis'};for(const o of form.elements.provider.options)o.textContent=friendly[o.value]||o.textContent;
+ const friendly={qwen3vl:'Standard',qwen:'Compatibility',qwen3:'Two models'};for(const o of form.elements.provider.options)o.textContent=friendly[o.value]||o.textContent;
+ const orientationNames={auto:'Auto · split',horizontal:'Landscape',vertical:'Portrait',custom:'Custom canvas'};for(const o of form.elements.orientation.options)o.textContent=orientationNames[o.value]||o.textContent;
  primary.insertAdjacentHTML('beforeend','<p class="hint">Runs locally on your PC. Model details are in Settings.</p>');
  const secondary=settings.querySelector('#ux-secondary .detail-body');
  for(const name of ['resolution','editor','grouping','ramps','slowMotion'])secondary.append(label(name));
@@ -46,4 +49,5 @@
  q('#ux-music-change').onclick=()=>musicDialog.showModal();q('#ux-music-close').onclick=()=>musicDialog.close();
  q('#ux-auto').onclick=()=>{q('#ux-advanced').open=false;q('#ux-secondary').open=false;q('#ux-auto').setAttribute('aria-pressed','true');q('#ux-custom').setAttribute('aria-pressed','false');};
  q('#ux-custom').onclick=()=>{q('#ux-secondary').open=true;q('#ux-auto').setAttribute('aria-pressed','false');q('#ux-custom').setAttribute('aria-pressed','true');};
+ window.addEventListener('load',()=>window.scrollTo(0,0),{once:true});
 })();

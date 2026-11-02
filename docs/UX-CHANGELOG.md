@@ -48,3 +48,15 @@ Protected phone monitoring; still-photo/parallax editing; advanced DJ/sound desi
 - Backed up and installed only the launcher scripts and repaired shortcut; stable editing UI and user data remain in place. Desktop shortcut was launched and stable server reuse verified on port 8787. Preview cold-start and repeated-launch checks passed on port 8788.
 - Tag publication was attempted without interactive sign-in and failed because Git has no credentials. The exact stable commit remains backed up on main and the remote recovery branch; the local tag exists.
 
+
+## 5 — WhatsApp lifecycle and final visual checks
+
+- Existing QR generation and browser rendering were working at baseline; the original reported failure was not reproduced. Identified a real retry defect: authentication failures kept the old client attached, making later Pair requests return the failed state.
+- Targeted lifecycle fix now clears stale QR state, tears down failed/disconnected clients, allows retries after failures, catches QR generation/browser initialization errors and avoids duplicate clients. Existing delivery code, dependencies and stored sessions are preserved. No live messages sent or account sessions deleted.
+- Lifecycle regression tests pass for QR, duplicate connect, authentication failure/retry, authenticated/ready, disconnect, image generation failure and browser launch failure. A live phone scan remains user verification.
+- Final desktop pass keeps common controls and music visible at approximately 1280 x 720; project rename is in the header. History search is in the header and its primary actions fit above the footer. Navigation avoids fragment-anchor scroll jumps.
+- Search preserves the selected soundtrack even when its name is filtered out. Source preview tries another usable clip and can fall back to a still frame for browser codec limitations.
+- Final checks: all 36 app JavaScript files pass syntax checks; project naming/metadata and pause/resume/cancel/security tests pass. Existing 90-second completed video plays in the redesigned History. All 38 original named settings remain (41 including three optional organization fields).
+- Stable and preview services verified on 8787 and 8788. Only launcher.cjs differs from the preserved installed app; other stable UI/engine files remain unchanged.
+- No framework/dependency replacement, data migration, public PC exposure, YouTube upload, photo/parallax or advanced DJ expansion.
+
