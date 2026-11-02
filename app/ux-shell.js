@@ -6,6 +6,7 @@
  q('.brand').innerHTML='<b aria-hidden="true">▶</b> LocalCut';
  const navNames={workspace:'⌂  Home',history:'◷  History',connections:'⚙  Settings',polish:'▦  Storyboard',beats:'♫  Adjust to beats',audio:'♬  Audio studio',library:'▤  Source library',progress:'↗  Detailed progress'};
  const nav=q('nav');for(const key of ['workspace','history','polish','beats','audio','connections','library','progress']){const b=nav.querySelector('[data-tab="'+key+'"]');b.textContent=navNames[key];nav.append(b);}
+ const tools=document.createElement('details');tools.className='nav-tools';tools.innerHTML='<summary>Editing tools</summary>';for(const key of ['polish','beats','audio','library','progress'])tools.append(nav.querySelector('[data-tab="'+key+'"]'));nav.append(nav.querySelector('[data-tab="connections"]'),tools);if(['polish','beats','audio','library','progress'].includes(location.hash.slice(1)))tools.open=true;
  q('header').innerHTML='<div><h1 id="ux-project-title">Create your next edit</h1><p id="ux-project-path">Choose footage to begin</p></div><span id="connection">Connecting…</span>';
  q('.disk').innerHTML='<span class="dot"></span>LOCAL WORKSPACE<p id="space">Checking storage…</p><small>Your originals stay in place.</small>';
  const columns=document.createElement('div');columns.className='ux-columns';form.prepend(columns);
@@ -24,7 +25,7 @@
  primary.insertAdjacentHTML('beforeend','<p class="hint">Runs locally on your PC. Model details are in Settings.</p>');
  const secondary=settings.querySelector('#ux-secondary .detail-body');
  for(const name of ['resolution','editor','grouping','ramps','slowMotion'])secondary.append(label(name));
- secondary.append(q('#custom-size'));secondary.append(label('instructions'));
+ secondary.append(q('#custom-size'));secondary.append(label('instructions'));secondary.insertAdjacentHTML('beforeend','<details><summary>Project organization</summary><div class="detail-body"><label class="check"><input type="checkbox" name="prefixYYMM">Prefix project names with YYMM</label><p class="hint">Optional default for new edits, for example 2611_Bali_Trip.</p><label>Activity · optional<input name="activity" maxlength="120" placeholder="e.g. hiking"></label><label>Theme · optional<input name="theme" maxlength="120" placeholder="e.g. autumn weekend"></label></div></details>');
  const advanced=settings.querySelector('#ux-advanced .detail-body');advanced.append(edit,director,variants,delivery);
  // Name stays at the top; the existing submit button becomes the one primary action.
  const submit=delivery.querySelector('[type="submit"]');submit.innerHTML='Start edit <span aria-hidden="true">→</span>';submit.id='ux-start';settings.append(submit);

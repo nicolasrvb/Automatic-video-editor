@@ -28,3 +28,15 @@ Protected phone monitoring; still-photo/parallax editing; advanced DJ/sound desi
 - Checks: representative preview returned JPEG (26 KB), pause/resume/cancel integration passed, and cross-site API protections plus Sites-button navigation passed.
 - Regressions found and fixed: bundled FFmpeg rejected shorthand 0.2 seek formatting; navigation test now uses HTTP headers faithfully rather than Fetch overriding its mode.
 
+
+## 3 — Music, History and project organization
+
+- Compact music strip now displays the selected song, a measured 120-bin energy waveform, estimated BPM/duration and working play/pause. Existing searchable list and sound controls stay in Change Music.
+- Shared master-detail History keeps one preview, newest completed edits first, search, primary output actions and existing advanced revision controls.
+- Successful new edits automatically navigate to History and select their output. Navigation pauses hidden footage/result players.
+- Added optional YYMM naming and activity/theme fields; existing settings/paths remain compatible. README and run metadata preserve project context. No unsupported recording-date inference or YouTube controls.
+- Main navigation now emphasizes Home, History and Settings; existing refinement/audio tools remain under Editing tools.
+- Checks: selected music playback confirmed; waveform contains 120 measured bins and estimated tempo/duration. A real local Qwen test made six analysis calls and generated HQ, SQ, XML and README. Both MP4s fully decode; XML parses. Completion navigation and selected result observed in browser.
+- Test target was 4 seconds; Qwen approved 2.375 seconds and reported the source limitation. No artificial padding/repeated footage was introduced.
+- Prefix/month rollover/metadata tests pass. No user data schema migration.
+

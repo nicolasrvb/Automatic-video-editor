@@ -14,7 +14,7 @@ function configs(base,variants){
 function create(base,variants){
  if(busy()||S.runs().some(j=>['queued','running'].includes(j.status)))throw Error('Wait for the active edit or batch');
  const prepared=configs(base,variants),files=S.walk(prepared[0].config.source,prepared[0].config.recursive).filter(f=>!base.excludedFiles?.includes(f));if(!files.length)throw Error('No source videos');
- const id=S.id(),name=String(base.name||path.basename(base.source)||'A/B edit').slice(0,65),createdAt=new Date().toISOString();
+ const id=S.id(),name=require('./project-metadata.cjs').projectName(base).slice(0,65),createdAt=new Date().toISOString();
  const music=prepared[0].config.musicOn?S.walk(prepared[0].config.musicFolder,false,'audio').map(S.media):[];
  const jobs=prepared.map(v=>{const musicPath=v.config.musicOn?music.find(m=>m.id===v.config.musicId)?.path:null;if(v.config.musicOn&&!musicPath)throw Error('Select a song for version '+v.label);return {id:S.id(),batchId:id,variant:v.label,name:name+' · '+v.label+' · '+v.pacing,createdAt,status:'waiting',stage:'Waiting for batch',config:v.config,files,musicPath,stages:[],outputs:[],warnings:[],visualChecks:[],cacheHits:0,usage:{before:{input:0,output:0,cached:0},after:{input:0,output:0,cached:0},calls:[],scope:'Per version; shared local analysis cache reduces repeated model work.'}};});
  const b={id,name,createdAt,status:'running',pid:process.pid,versions:jobs.map((j,i)=>({id:j.id,label:j.variant,pacing:prepared[i].pacing,speed:prepared[i].speed,song:j.musicPath?path.basename(j.musicPath):'Original audio only'}))};
