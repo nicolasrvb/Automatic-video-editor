@@ -1,0 +1,9 @@
+{
+  "sourceRoot": "F:\\Videos\\My next project",
+  "copy": true,
+  "files": [
+    "clip-01.mp4",
+    "clip-02.mov",
+    "music.mp3"
+  ]
+}

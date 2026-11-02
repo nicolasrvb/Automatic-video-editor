@@ -1,0 +1,10 @@
+LocalCut snapshot storyboard — 17 October 2026
+
+Workflow: Create the HQ as usual. If it is already good, keep it. For optional changes, open History > Open snapshot storyboard.
+Drag cards to reorder. Select a card to trim, change speed, rotate, crop, duplicate or remove. Save storyboard saves only editing decisions. Export polished HQ creates a separate export; the original HQ remains intact.
+Suggest beat fit proposes small timing changes on the cached music grid. Review and apply explicitly. Protected durations stay unchanged.
+Previews and unchanged rendered segments are cached on D. Manual polish makes zero model calls. Preview audio is the original clip sound; the full export uses the music/audio configuration of the original edit.
+Future Qwen drafts check a sampled frame for upside-down content. Confident detections require a second check of the corrected image before 180-degree rotation is applied. This is a safeguard, not a guarantee for every camera movement. Existing drafts can be rotated manually.
+
+Verified: trim/speed/rotation validation; browser playback; saving, reordering and undo; short HQ export with rotation and speed changes; repeat export reused both cached segments. Dedicated Qwen test distinguished upright and intentionally inverted copies.
+Local backup: D:\LocalCut Studio\backups\before-storyboard-2026-10-17

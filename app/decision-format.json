@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "source": "gpt-assisted",
+  "notes": "Use real asset IDs from a downloaded run plan or review package. Times are in seconds. Average speed is sourceDuration / duration. ramp: 0 is constant speed; 0.35 is a gentle fast-slow-fast curve. No GPT call is made by importing this file.",
+  "edits": [
+    {
+      "orientation": "vertical",
+      "shots": [
+        {
+          "assetId": "REPLACE-WITH-A-SELECTED-VIDEO-ID",
+          "start": 1,
+          "sourceDuration": 3.6,
+          "duration": 4,
+          "ramp": 0.35
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+node_modules/
+runtime/
+models/
+data/
+cache/
+exports/
+backups/
+downloads/
+comparisons/
+batches/
+effects/
+.env*
+*.log
