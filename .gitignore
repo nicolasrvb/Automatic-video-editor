@@ -11,3 +11,10 @@ batches/
 effects/
 .env*
 *.log
+
+audio/.venv/
+audio/jobs/
+audio/exports/
+audio/cache/
+__pycache__/
+
