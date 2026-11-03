@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict');
+process.env.LOCALCUT_COMPANION='1';
+const {allowed}=require('../app/access.cjs');
+const config={enabled:true,origin:'https://editor.example.ts.net',login:'owner@example.test'};
+const make=(headers={},method='GET',url='/api/state')=>({headers:{host:'editor.example.ts.net','x-forwarded-proto':'https','tailscale-user-login':config.login,...headers},method,url,socket:{remoteAddress:'127.0.0.1'}});
+assert.equal(allowed(make(),8789,config),true);
+assert.equal(allowed(make({origin:config.origin},'POST'),8789,config),true);
+for(const headers of [{host:'evil.ts.net'},{origin:'https://evil.example'},{'tailscale-user-login':'other@example.test'},{'tailscale-user-login':undefined},{'x-forwarded-proto':'http'},{'sec-fetch-site':'cross-site'}])assert.equal(allowed(make(headers),8789,config),false);
+assert.equal(allowed({...make(),socket:{remoteAddress:'192.168.1.10'}},8789,config),false);
+assert.equal(allowed(make(),8789,{}),false);
+assert.equal(allowed(make(),8789,{...config,origin:'http://editor.example.ts.net'}),false);
+assert.equal(allowed(make({host:'127.0.0.1:8789','tailscale-user-login':undefined,'x-forwarded-proto':undefined}),8789,{}),true);
+assert.equal(allowed(make({host:'127.0.0.1:8789',origin:'https://evil.example'}),'8789',{}),false);
+assert.equal(allowed(make({'sec-fetch-site':'cross-site','sec-fetch-mode':'navigate','sec-fetch-dest':'document'},'GET','/'),8789,config),true);
+assert.equal(allowed(make({'sec-fetch-site':'cross-site','sec-fetch-mode':'navigate','sec-fetch-dest':'document'},'POST','/'),8789,config),false);
+process.env.LOCALCUT_COMPANION='';assert.equal(allowed(make(),8789,config),false);
+console.log('PASS: owner identity, HTTPS origin, loopback proxy, opt-in, CSRF and local access boundaries.');

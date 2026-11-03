@@ -1,0 +1,1 @@
+{"name":"LocalCut","short_name":"LocalCut","description":"Plan local edits, check progress and watch finished videos.","start_url":"./#progress","scope":"./","display":"standalone","background_color":"#f3f6fa","theme_color":"#1b2431","icons":[{"src":"/app-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}

@@ -60,3 +60,19 @@ Protected phone monitoring; still-photo/parallax editing; advanced DJ/sound desi
 - Stable and preview services verified on 8787 and 8788. Only launcher.cjs differs from the preserved installed app; other stable UI/engine files remain unchanged.
 - No framework/dependency replacement, data migration, public PC exposure, YouTube upload, photo/parallax or advanced DJ expansion.
 
+# Mobile planning and live companion — 2026-11-03
+
+- Added phone navigation for Plan, Progress and History, with a three-step
+  footage/edit/music workflow, saved setup, touch controls and focused results.
+- Added live progress with existing pause/resume/cancel operations and a web
+  app manifest for home-screen use after protected HTTPS access is configured.
+- Added a separate loopback companion using canonical run data, independent
+  launcher markers and no competing WhatsApp session or notification timers.
+- Remote access defaults off. Optional Tailscale Serve access requires exact
+  owner identity, HTTPS origin and loopback proxy; stable local access retains
+  its cross-origin boundary. No database or media migration.
+- Verified live state reads 70 existing runs and serves mobile assets. Access
+  guard, isolated progress controls, metadata and WhatsApp lifecycle tests pass.
+- Still pending: actual private network sign-in/configuration, phone URL and
+  physical phone playback; visual browser QA blocked by Work browser settings.
+
